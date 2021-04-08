@@ -2,7 +2,6 @@ from flask import Flask, render_template, request
 import os
 from flask_cors import CORS, cross_origin
 import pusher
-import yaml
 from flask_mysqldb import MySQL
 
 app =Flask(__name__)
@@ -10,11 +9,10 @@ app =Flask(__name__)
 port = int(os.environ.get('PORT', 5000))
 
 #configure db
-db = yaml.load(open('db.yaml'))
-app.config['MYSQL_HOST'] = db['mysql_host']
-app.config['MYSQL_USER'] = db['mysql_user']
-app.config['MYSQL_PASSWORD'] = db['mysql_password']
-app.config['MYSQL_DB'] = db['mysql_db']
+app.config['MYSQL_HOST'] = 'us-cdbr-east-03.cleardb.com'
+app.config['MYSQL_USER'] = 'b5e21d77835cb7'
+app.config['MYSQL_PASSWORD'] = 'fe68c78a'
+app.config['MYSQL_DB'] = 'MyDatabase'
 
 mysql = MySQL(app)
 
