@@ -10,7 +10,7 @@ port = int(os.environ.get('PORT', 5000))
 
 #configure db
 app.config['MYSQL_HOST'] = 'us-cdbr-east-03.cleardb.com'
-app.config['MYSQL_USER'] = 'b5e21d77835cb7'
+app.config['MYSQL_USER'] = 'b5e21d77835cb7@%'
 app.config['MYSQL_PASSWORD'] = 'fe68c78a'
 app.config['MYSQL_DB'] = 'heroku_user'
 
