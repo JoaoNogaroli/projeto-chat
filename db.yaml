@@ -1,0 +1,4 @@
+mysql_host: 'us-cdbr-east-03.cleardb.com'
+mysql_user: 'b5e21d77835cb7'
+mysql_password: 'fe68c78a'
+mysql_db: 'MyDatabase'

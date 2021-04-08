@@ -1,0 +1,85 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="container">
+  <nav class="navbar navbar-expand-md navbar-light fixed-bottom">
+    <!-- Navbar content -->
+    <div class="container">
+      <div class="navbar-item is-expanded">
+        <a>Insira seu Nome:</a>
+        <input type="text" id="username"> <br>
+        <a>Insira sua Mensagem:</a>
+        <input type="text" class="msg" id="msg"> <br><br>
+        <input type="button" id="start_chat" class="btn btn-success" value="Enviar">
+        
+  </nav>
+
+  <div id="content" style="background-color: #d1ced1;  width: auto;  height:500px ; overflow-y: hidden; ;overflow: auto;  text-align: justify;  padding: 20px;">
+  </div>
+
+</div>
+
+
+    
+
+<script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+  <script>
+
+    let username;
+
+    $(function(){
+
+      $('#start_chat').on('click', function(){
+        username = $('#username').val();
+        msg = $('#msg').val();
+        data = {'username': username, 'msg': msg}
+        //alert("Username: "+ data.username+'\n' + "Mensagem: " + msg);
+        $('.msg').val("");
+        $.post('/message', {'username': username, 'message': msg}, function(){
+          
+        });
+
+        
+      });
+     
+
+    });
+    
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('172519f8f1cb46b08df5', {
+      cluster: 'us2'
+    });
+
+    var channel = pusher.subscribe('chat-channel');
+    channel.bind('new-message', function(data) {
+      //alert(JSON.stringify(data));
+      //alert(data.message);
+      
+      let name = data.username;
+      let msg = data.message;
+      const now = new Date();
+      const hour = "Enviado: "+ now.getHours()+":"+now.getMinutes();
+      const momento = now.getTime();
+      let msg_template = `<article class="media">
+                                  <div class="media-content">
+                                    <div class="content">
+                                      <p>
+                                        <strong>Nome: ${name}</strong>
+                                        <br><h9 style="font-size: 12px"> ${hour} --</h9>
+                                        Mensagem: <input readonly id="${momento}" style="background-color:transparent; text-decorate:none; border:none" value="${msg}"></input>
+                                      </p>
+                                    </div>
+                                  </div>
+                                </article>`;
+
+      $('#content').append(msg_template);       
+      document.getElementById(""+momento+"").focus();
+      document.getElementById(""+momento+"").blur();
+      
+
+ 
+    });
+  </script>
+
+{% endblock %}
