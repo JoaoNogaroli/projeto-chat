@@ -39,7 +39,7 @@ def enviar():
       senha_user = inforform['senha']    
 
       cur = mysql.connection.cursor()
-      cur.execute("INSER INTO users(nome_user,email_user,senha_user) VALUES(%s,%s,%s)", (nome_user,email_user,senha_user))
+      cur.execute("INSERT INTO heroku_3aabea2c4385c93.tbl_users(nome_user,email_user,senha_user) VALUES(%s,%s,%s)", (nome_user,email_user,senha_user))
       mysql.connection.commit()
       cur.close()
       return 'succes'
